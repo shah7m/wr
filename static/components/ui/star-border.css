@@ -1,0 +1,90 @@
+.star-border {
+  position: relative;
+  display: inline-block;
+  padding: 1px;
+  overflow: hidden;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-bottom: 4rem;
+  animation: fadeInUp 1s ease 1.6s both;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.star-border-bottom {
+  position: absolute;
+  width: 300%;
+  height: 50%;
+  bottom: -11px;
+  right: -250%;
+  border-radius: 50%;
+  opacity: 0.7;
+  z-index: 0;
+  animation: star-movement-bottom 6s linear infinite alternate;
+}
+
+.star-border-top {
+  position: absolute;
+  width: 300%;
+  height: 50%;
+  top: -10px;
+  left: -250%;
+  border-radius: 50%;
+  opacity: 0.7;
+  z-index: 0;
+  animation: star-movement-top 6s linear infinite alternate;
+}
+
+.star-border-content {
+  position: relative;
+  z-index: 1;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  text-align: center;
+  font-size: 1.1rem;
+  padding: 1.25rem 2.5rem;
+  border-radius: 20px;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(30, 30, 30, 0.9));
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 600;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.star-border-content:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.btn-arrow {
+  transition: transform 0.3s ease;
+}
+
+.star-border-content:hover .btn-arrow {
+  transform: translateX(5px);
+}
+
+@keyframes star-movement-bottom {
+  0% {
+    transform: translate(0%, 0%);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-100%, 0%);
+    opacity: 0;
+  }
+}
+
+@keyframes star-movement-top {
+  0% {
+    transform: translate(0%, 0%);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(100%, 0%);
+    opacity: 0;
+  }
+}
