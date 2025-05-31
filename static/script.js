@@ -1,11 +1,34 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const openModalBtn = document.getElementById("openModalBtn")
+  const closeModalBtn = document.getElementById("closeModalBtn")
+  const modalOverlay = document.getElementById("modalOverlay")
   const form = document.getElementById("reminderForm")
   const submitBtn = document.getElementById("submitBtn")
   const messageContainer = document.getElementById("message-container")
   const btnText = submitBtn.querySelector(".btn-text")
+  const recurringInput = document.getElementById("recurring")
 
   let currentStep = 1
   const totalSteps = 3
+
+  // Modal controls
+  openModalBtn.addEventListener("click", () => {
+    modalOverlay.classList.add("active")
+    document.body.style.overflow = "hidden"
+  })
+
+  closeModalBtn.addEventListener("click", closeModal)
+  modalOverlay.addEventListener("click", (e) => {
+    if (e.target === modalOverlay) {
+      closeModal()
+    }
+  })
+
+  function closeModal() {
+    modalOverlay.classList.remove("active")
+    document.body.style.overflow = "auto"
+    resetForm()
+  }
 
   // Initialize and update current time
   const dateInput = document.getElementById("date")
@@ -208,8 +231,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const phoneValue = phoneInput?.value || ""
     const dateValue = dateInput?.value || ""
     const timeValue = timeInput?.value || ""
+    const recurringValue = recurringInput?.value || "none"
 
-    console.log("Form values:", { messageValue, phoneValue, dateValue, timeValue }) // Debug log
+    console.log("Form values:", { messageValue, phoneValue, dateValue, timeValue, recurringValue }) // Debug log
 
     // Validate message
     if (!messageValue || messageValue.length === 0 || messageValue.length > 160) {
@@ -245,6 +269,7 @@ document.addEventListener("DOMContentLoaded", () => {
       phone: "974" + phoneValue, // Add Qatar country code
       message: messageValue,
       time: dateTimeString,
+      recurring: recurringValue,
     }
 
     console.log("Submitting data:", data) // Debug log
@@ -264,9 +289,11 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log("Server response:", result) // Debug log
 
       if (response.ok) {
-        showMessage("Reminder set successfully! 🎉", "success")
-        // Reset form and go back to step 1
-        resetForm()
+        const recurringText = recurringValue !== "none" ? ` (${recurringValue})` : ""
+        showMessage(`Reminder set successfully${recurringText}! 🎉`, "success")
+        setTimeout(() => {
+          closeModal()
+        }, 2000)
       } else {
         showMessage(result.error || "Failed to set reminder", "error")
       }
