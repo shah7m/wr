@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Reminder Service</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="stars"></div>
+    <div class="stars2"></div>
+    <div class="stars3"></div>
+    
+    <div class="container">
+        <header class="header">
+            <h1 class="title">
+                <span class="icon">📱</span>
+                WhatsApp Reminder
+            </h1>
+            <p class="subtitle">Never forget important moments again</p>
+        </header>
+
+        <main class="main">
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+                <div class="progress-steps">
+                    <div class="step active" data-step="1">
+                        <span class="step-number">1</span>
+                        <span class="step-label">Message</span>
+                    </div>
+                    <div class="step" data-step="2">
+                        <span class="step-number">2</span>
+                        <span class="step-label">Phone</span>
+                    </div>
+                    <div class="step" data-step="3">
+                        <span class="step-number">3</span>
+                        <span class="step-label">Time</span>
+                    </div>
+                </div>
+            </div>
+
+            <form id="reminderForm" class="form">
+                <!-- Step 1: Message -->
+                <div class="form-step active" data-step="1">
+                    <div class="step-header">
+                        <h2 class="step-title">💬 What should I remind you about?</h2>
+                        <p class="step-description">Enter your reminder message</p>
+                    </div>
+                    <div class="form-group">
+                        <textarea 
+                            id="message" 
+                            name="message" 
+                            class="input textarea" 
+                            placeholder="Don't forget to call mom..."
+                            rows="4"
+                            required
+                        ></textarea>
+                        <div class="char-counter">
+                            <span id="char-count">0</span>/160 characters
+                        </div>
+                    </div>
+                    <button type="button" class="next-btn" data-next="2" disabled>
+                        <span>Next</span>
+                        <span class="btn-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- Step 2: Phone Number -->
+                <div class="form-step" data-step="2">
+                    <div class="step-header">
+                        <h2 class="step-title">📞 What's your phone number?</h2>
+                        <p class="step-description">Enter your WhatsApp number</p>
+                    </div>
+                    <div class="form-group">
+                        <div class="phone-input-container">
+                            <div class="country-code">🇶🇦 +974</div>
+                            <input 
+                                type="tel" 
+                                id="phone" 
+                                name="phone" 
+                                class="input phone-input" 
+                                placeholder="12345678"
+                                required
+                            >
+                        </div>
+                        <small class="help-text">Qatar numbers only (8 digits)</small>
+                    </div>
+                    <div class="step-buttons">
+                        <button type="button" class="back-btn" data-back="1">
+                            <span class="btn-arrow">←</span>
+                            <span>Back</span>
+                        </button>
+                        <button type="button" class="next-btn" data-next="3" disabled>
+                            <span>Next</span>
+                            <span class="btn-arrow">→</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Time Selection -->
+                <div class="form-step" data-step="3">
+                    <div class="step-header">
+                        <h2 class="step-title">⏰ When should I remind you?</h2>
+                        <p class="step-description">Choose date and time for your reminder</p>
+                        <div class="current-time">
+                            🇶🇦 Qatar Time: <span id="current-time"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="time-selection">
+                        <div class="time-inputs">
+                            <div class="form-group">
+                                <label class="time-label">📅 Date</label>
+                                <input 
+                                    type="date" 
+                                    id="date" 
+                                    name="date" 
+                                    class="input date-input" 
+                                    required
+                                >
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="time-label">🕐 Time</label>
+                                <input 
+                                    type="time" 
+                                    id="time-input" 
+                                    name="time-input" 
+                                    class="input time-input"
+                                    required
+                                >
+                            </div>
+                        </div>
+
+                        <!-- Selected Time Display -->
+                        <div class="selected-time" id="selectedTimeDisplay" style="display: none;">
+                            <div class="selected-time-content">
+                                <span class="selected-icon">✅</span>
+                                <div class="selected-text">
+                                    <div class="selected-label">Reminder set for:</div>
+                                    <div class="selected-value" id="selectedTimeText"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step-buttons">
+                        <button type="button" class="back-btn" data-back="2">
+                            <span class="btn-arrow">←</span>
+                            <span>Back</span>
+                        </button>
+                        <button type="submit" class="submit-btn" id="submitBtn" disabled>
+                            <span class="btn-text">Set Reminder</span>
+                            <span class="btn-icon">✨</span>
+                        </button>
+                    </div>
+                </div>
+
+                <input type="hidden" id="time" name="time">
+            </form>
+
+            <div id="message-container" class="message-container"></div>
+        </main>
+
+        <footer class="footer">
+            <p>Powered by Twilio WhatsApp API</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
