@@ -1,5 +1,5 @@
 from apscheduler.schedulers.background import BackgroundScheduler
-from datetime import datetime
+from datetime import datetime, timedelta
 from pytz import utc
 from pymongo import MongoClient
 from twilio.rest import Client
@@ -8,35 +8,35 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# MongoDB connection - same as models.py
+# MongoDB connection
 MONGO_URI = os.getenv('MONGODB_URI', 'mongodb://localhost:27017/')
 mongo_client = MongoClient(MONGO_URI)
 db = mongo_client["reminder_db"]
 reminders = db["reminders"]
 
-# Twilio credentials from .env
+# Twilio credentials
 TWILIO_ACCOUNT_SID = os.getenv("TWILIO_ACCOUNT_SID")
 TWILIO_AUTH_TOKEN = os.getenv("TWILIO_AUTH_TOKEN")
-# Fix: Read the WhatsApp number from environment variable
-TWILIO_WHATSAPP_FROM = os.getenv("TWILIO_WHATSAPP_FROM", "whatsapp:+14155238886")  # Fallback to sandbox number
+TWILIO_WHATSAPP_FROM = os.getenv("TWILIO_WHATSAPP_FROM", "whatsapp:+14155238886")
 
 client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
+scheduler = BackgroundScheduler(timezone=utc)
 
-scheduler = BackgroundScheduler(timezone=utc)  # explicitly set UTC timezone for scheduler
+def calculate_next_occurrence(original_time, recurring_type):
+    """Calculate the next occurrence for recurring reminders"""
+    if recurring_type == "daily":
+        return original_time + timedelta(days=1)
+    elif recurring_type == "weekly":
+        return original_time + timedelta(weeks=1)
+    elif recurring_type == "monthly":
+        # Add approximately 30 days for monthly
+        return original_time + timedelta(days=30)
+    return None
 
 def send_due_reminders():
-    # Make sure we have a timezone-aware UTC datetime for comparison
     now = datetime.utcnow().replace(tzinfo=utc)
     print(f"Checking for due reminders at {now.isoformat()}")
 
-    # Debug: Print all upcoming reminders
-    upcoming = list(reminders.find({"sent": False}).sort("time", 1))
-    print(f"Found {len(upcoming)} upcoming reminders")
-    
-    for reminder in upcoming:
-        reminder_time = reminder["time"]
-        print(f"Reminder scheduled for: {reminder_time.isoformat()} (Current UTC: {now.isoformat()})")
-    
     # Find reminders that are due
     due_reminders = reminders.find({
         "sent": False,
@@ -48,18 +48,13 @@ def send_due_reminders():
         phone = reminder["phone"]
         message = reminder["message"]
         reminder_time = reminder["time"]
+        recurring = reminder.get("recurring", "none")
         
         print(f"Processing due reminder for {phone} scheduled at {reminder_time.isoformat()}")
 
         try:
-            # Fix: Ensure phone number is properly formatted
-            # Remove any '+' if it's already in the phone number
+            # Send WhatsApp message
             phone = phone.lstrip('+') if isinstance(phone, str) else phone
-            
-            # Debug: Print the full message details
-            print(f"Attempting to send message to whatsapp:+{phone}")
-            print(f"From: {TWILIO_WHATSAPP_FROM}")
-            print(f"Message: {message}")
             
             message_response = client.messages.create(
                 from_=TWILIO_WHATSAPP_FROM,
@@ -67,15 +62,35 @@ def send_due_reminders():
                 body=message
             )
             
-            # Debug: Print the message SID to confirm it was sent
             print(f"Message sent with SID: {message_response.sid}")
             
+            # Mark as sent
             reminders.update_one({"_id": reminder["_id"]}, {"$set": {"sent": True}})
+            
+            # Handle recurring reminders
+            if recurring != "none":
+                original_time = reminder.get("original_time", reminder_time)
+                next_time = calculate_next_occurrence(original_time, recurring)
+                
+                if next_time:
+                    # Create new reminder for next occurrence
+                    new_reminder = {
+                        "phone": phone,
+                        "message": message,
+                        "time": next_time,
+                        "sent": False,
+                        "recurring": recurring,
+                        "original_time": original_time
+                    }
+                    
+                    new_id = reminders.insert_one(new_reminder).inserted_id
+                    print(f"Created next {recurring} reminder with ID: {new_id} for {next_time.isoformat()}")
+            
             count += 1
-            print(f"Sent reminder to {phone} at {datetime.utcnow().replace(tzinfo=utc).isoformat()}")
+            print(f"Sent reminder to {phone}")
+            
         except Exception as e:
             print(f"Failed to send reminder to {phone}: {str(e)}")
-            # Print more detailed error information
             import traceback
             traceback.print_exc()
     
@@ -87,6 +102,4 @@ def start_scheduler():
         scheduler.add_job(send_due_reminders, 'interval', minutes=1)
         scheduler.start()
         print("Scheduler started")
-        
-        # Run once immediately to check for any pending reminders
         send_due_reminders()
