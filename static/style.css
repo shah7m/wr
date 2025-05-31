@@ -238,6 +238,7 @@ body {
   cursor: pointer;
   margin-bottom: 4rem;
   animation: fadeInUp 1s ease 1.6s both;
+  display: inline-block; /* Ensure it's displayed properly */
 }
 
 .features {
