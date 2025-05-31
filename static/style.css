@@ -198,7 +198,7 @@ body {
 }
 
 .hero-title {
-  font-size: clamp(3rem, 8vw, 8rem);
+  font-size: clamp(2.5rem, 7vw, 6.5rem); /* Reduced from 8rem to 6.5rem */
   font-weight: 900;
   line-height: 0.9;
   margin-bottom: 1.5rem;
@@ -233,52 +233,11 @@ body {
   animation: fadeInUp 1s ease 1.4s both;
 }
 
-.cta-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 1.25rem 2.5rem;
-  background: linear-gradient(135deg, #000000, #333333, #ffffff);
-  color: #000000;
-  border: none;
-  border-radius: 50px;
-  font-size: 1.1rem;
-  font-weight: 600;
+/* Star Border Button is now in its own CSS file */
+#openModalBtn {
   cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
   margin-bottom: 4rem;
   animation: fadeInUp 1s ease 1.6s both;
-  position: relative;
-  overflow: hidden;
-}
-
-.cta-button::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.5s;
-}
-
-.cta-button:hover::before {
-  left: 100%;
-}
-
-.cta-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-}
-
-.cta-button .btn-arrow {
-  transition: transform 0.3s ease;
-}
-
-.cta-button:hover .btn-arrow {
-  transform: translateX(5px);
 }
 
 .features {
@@ -383,6 +342,7 @@ body {
   cursor: pointer;
   transition: all 0.3s ease;
   font-weight: 300;
+  z-index: 10; /* Ensure it's above progress bar */
 }
 
 .modal-close:hover {
@@ -394,13 +354,14 @@ body {
 .progress-bar {
   margin-bottom: 2rem;
   position: relative;
+  padding-right: 50px; /* Add space for close button */
 }
 
 .progress-fill {
   height: 3px;
   background: linear-gradient(90deg, #8b5cf6, #a855f7);
   border-radius: 2px;
-  width: 33.33%;
+  width: 25%; /* Updated for 4 steps */
   transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -454,6 +415,89 @@ body {
 .step-label {
   font-size: 0.8rem;
   color: rgba(255, 255, 255, 0.6);
+  font-weight: 400;
+}
+
+/* WhatsApp Setup Styles */
+.setup-content {
+  margin-bottom: 2rem;
+}
+
+.setup-instruction {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.instruction-step {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.instruction-number {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #8b5cf6, #a855f7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: #ffffff;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+}
+
+.instruction-text {
+  flex: 1;
+}
+
+.instruction-text p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  font-weight: 400;
+}
+
+.join-code {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 0.5rem 0.8rem;
+  font-family: "Courier New", monospace;
+  font-weight: 600;
+  color: #ffffff;
+  font-size: 0.9rem;
+  display: inline-block;
+  margin-top: 0.3rem;
+}
+
+.whatsapp-link {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.8rem 1.2rem;
+  background: linear-gradient(135deg, #25d366, #128c7e);
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+}
+
+.whatsapp-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3);
+}
+
+.phone-number {
+  font-size: 0.8rem;
+  opacity: 0.9;
   font-weight: 400;
 }
 
@@ -549,6 +593,14 @@ body {
   background: rgba(255, 255, 255, 0.12);
   box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
   transform: translateY(-1px);
+}
+
+/* Select dropdown options styling */
+.input option {
+  background: #ffffff;
+  color: #000000;
+  padding: 0.5rem;
+  font-weight: 400;
 }
 
 .textarea {
@@ -788,11 +840,22 @@ body {
   .form {
     height: 450px;
   }
+
+  .progress-bar {
+    padding-right: 40px;
+  }
+
+  .modal-close {
+    width: 32px;
+    height: 32px;
+    top: 1rem;
+    right: 1rem;
+  }
 }
 
 @media (max-width: 480px) {
   .hero-title {
-    font-size: 3rem;
+    font-size: 2.5rem;
   }
 
   .features {
@@ -811,6 +874,15 @@ body {
 
   .step-title {
     font-size: 1.2rem;
+  }
+
+  .instruction-step {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .instruction-number {
+    align-self: flex-start;
   }
 }
 
