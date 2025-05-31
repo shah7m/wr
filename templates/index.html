@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WhatsApp Reminder Service</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='components/ui/star-border.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -43,11 +44,15 @@
                 Perfect timing, every time.
             </p>
 
-            <!-- CTA Button -->
-            <button class="cta-button" id="openModalBtn">
-                <span class="btn-text">Set Your Reminder Here!</span>
-                <span class="btn-arrow">→</span>
-            </button>
+            <!-- CTA Button with Star Border -->
+            <div class="star-border" id="openModalBtn">
+                <div class="star-border-bottom" style="background: radial-gradient(circle, #ffffff, transparent 10%);"></div>
+                <div class="star-border-top" style="background: radial-gradient(circle, #ffffff, transparent 10%);"></div>
+                <div class="star-border-content">
+                    <span class="btn-text">Set Your Reminder Here!</span>
+                    <span class="btn-arrow">→</span>
+                </div>
+            </div>
 
             <!-- Features -->
             <div class="features">
@@ -78,22 +83,70 @@
                 <div class="progress-steps">
                     <div class="step active" data-step="1">
                         <span class="step-number">1</span>
-                        <span class="step-label">Message</span>
+                        <span class="step-label">Setup</span>
                     </div>
                     <div class="step" data-step="2">
                         <span class="step-number">2</span>
-                        <span class="step-label">Phone</span>
+                        <span class="step-label">Message</span>
                     </div>
                     <div class="step" data-step="3">
                         <span class="step-number">3</span>
+                        <span class="step-label">Phone</span>
+                    </div>
+                    <div class="step" data-step="4">
+                        <span class="step-number">4</span>
                         <span class="step-label">Schedule</span>
                     </div>
                 </div>
             </div>
 
             <form id="reminderForm" class="form">
-                <!-- Step 1: Message -->
+                <!-- Step 1: WhatsApp Setup -->
                 <div class="form-step active" data-step="1">
+                    <div class="step-header">
+                        <h2 class="step-title">Let's get you set up!</h2>
+                        <p class="step-description">First, we need your consent to send WhatsApp reminders</p>
+                    </div>
+                    <div class="setup-content">
+                        <div class="setup-instruction">
+                            <div class="instruction-step">
+                                <span class="instruction-number">1</span>
+                                <div class="instruction-text">
+                                    <p>Send this message to our WhatsApp:</p>
+                                    <div class="join-code">join check-pain</div>
+                                </div>
+                            </div>
+                            <div class="instruction-step">
+                                <span class="instruction-number">2</span>
+                                <div class="instruction-text">
+                                    <p>Click the button below to open WhatsApp:</p>
+                                    <a href="https://wa.me/14155238886?text=join%20check-pain" 
+                                       target="_blank" 
+                                       class="whatsapp-link">
+                                        📱 Open WhatsApp Chat
+                                        <span class="phone-number">+1 (415) 523-8886</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="instruction-step">
+                                <span class="instruction-number">3</span>
+                                <div class="instruction-text">
+                                    <p>Wait for the confirmation message, then come back here!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-buttons">
+                        <div></div>
+                        <button type="button" class="next-btn" data-next="2">
+                            <span>I've sent the message</span>
+                            <span class="btn-arrow">→</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Message -->
+                <div class="form-step" data-step="2">
                     <div class="step-header">
                         <h2 class="step-title">What would you like to be reminded about?</h2>
                         <p class="step-description">Write your reminder message</p>
@@ -112,16 +165,19 @@
                         </div>
                     </div>
                     <div class="step-buttons">
-                        <div></div>
-                        <button type="button" class="next-btn" data-next="2" disabled>
+                        <button type="button" class="back-btn" data-back="1">
+                            <span class="btn-arrow">←</span>
+                            <span>Back</span>
+                        </button>
+                        <button type="button" class="next-btn" data-next="3" disabled>
                             <span>Continue</span>
                             <span class="btn-arrow">→</span>
                         </button>
                     </div>
                 </div>
 
-                <!-- Step 2: Phone Number -->
-                <div class="form-step" data-step="2">
+                <!-- Step 3: Phone Number -->
+                <div class="form-step" data-step="3">
                     <div class="step-header">
                         <h2 class="step-title">What's your WhatsApp number?</h2>
                         <p class="step-description">We'll send the reminder here</p>
@@ -141,19 +197,19 @@
                         <small class="help-text">Qatar numbers only (8 digits)</small>
                     </div>
                     <div class="step-buttons">
-                        <button type="button" class="back-btn" data-back="1">
+                        <button type="button" class="back-btn" data-back="2">
                             <span class="btn-arrow">←</span>
                             <span>Back</span>
                         </button>
-                        <button type="button" class="next-btn" data-next="3" disabled>
+                        <button type="button" class="next-btn" data-next="4" disabled>
                             <span>Continue</span>
                             <span class="btn-arrow">→</span>
                         </button>
                     </div>
                 </div>
 
-                <!-- Step 3: Time Selection -->
-                <div class="form-step" data-step="3">
+                <!-- Step 4: Time Selection -->
+                <div class="form-step" data-step="4">
                     <div class="step-header">
                         <h2 class="step-title">When should we remind you?</h2>
                         <p class="step-description">Choose your preferred date and time</p>
@@ -200,7 +256,7 @@
                     </div>
 
                     <div class="step-buttons">
-                        <button type="button" class="back-btn" data-back="2">
+                        <button type="button" class="back-btn" data-back="3">
                             <span class="btn-arrow">←</span>
                             <span>Back</span>
                         </button>
