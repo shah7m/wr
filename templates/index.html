@@ -5,23 +5,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WhatsApp Reminder Service</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Animated Background -->
     <div class="stars"></div>
     <div class="stars2"></div>
     <div class="stars3"></div>
     
-    <div class="container">
-        <header class="header">
-            <h1 class="title">
-                <span class="icon">📱</span>
-                WhatsApp Reminder
-            </h1>
-            <p class="subtitle">Never forget important moments again</p>
-        </header>
+    <!-- Geometric Shapes -->
+    <div class="geometric-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+        <div class="shape shape-5"></div>
+    </div>
 
-        <main class="main">
+    <!-- Landing Page -->
+    <div class="landing-page">
+        <div class="landing-container">
+            <!-- Badge -->
+            <div class="badge">
+                <div class="badge-dot"></div>
+                <span>WhatsApp Reminder Service</span>
+            </div>
+
+            <!-- Main Title -->
+            <h1 class="hero-title">
+                <span class="title-line-1">Never Miss</span>
+                <span class="title-line-2">Important Moments</span>
+            </h1>
+
+            <!-- Subtitle -->
+            <p class="hero-subtitle">
+                Set smart reminders that reach you directly on WhatsApp. 
+                Perfect timing, every time.
+            </p>
+
+            <!-- CTA Button -->
+            <button class="cta-button" id="openModalBtn">
+                <span class="btn-text">Set Your Reminder Here!</span>
+                <span class="btn-arrow">→</span>
+            </button>
+
+            <!-- Features -->
+            <div class="features">
+                <div class="feature">
+                    <span class="feature-icon">⚡</span>
+                    <span>Instant Setup</span>
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">🔄</span>
+                    <span>Recurring Options</span>
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">📱</span>
+                    <span>WhatsApp Direct</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Overlay -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-container">
+            <button class="modal-close" id="closeModalBtn">×</button>
+            
+            <!-- Progress Bar -->
             <div class="progress-bar">
                 <div class="progress-fill"></div>
                 <div class="progress-steps">
@@ -102,7 +153,7 @@
                 <div class="form-step" data-step="3">
                     <div class="step-header">
                         <h2 class="step-title">⏰ When should I remind you?</h2>
-                        <p class="step-description">Choose date and time for your reminder</p>
+                        <p class="step-description">Choose date, time, and repeat options</p>
                         <div class="current-time">
                             🇶🇦 Qatar Time: <span id="current-time"></span>
                         </div>
@@ -133,15 +184,15 @@
                             </div>
                         </div>
 
-                        <!-- Selected Time Display -->
-                        <div class="selected-time" id="selectedTimeDisplay" style="display: none;">
-                            <div class="selected-time-content">
-                                <span class="selected-icon">✅</span>
-                                <div class="selected-text">
-                                    <div class="selected-label">Reminder set for:</div>
-                                    <div class="selected-value" id="selectedTimeText"></div>
-                                </div>
-                            </div>
+                        <!-- Recurring Options -->
+                        <div class="form-group">
+                            <label class="time-label">🔄 Repeat</label>
+                            <select id="recurring" name="recurring" class="input">
+                                <option value="none">No repeat</option>
+                                <option value="daily">Daily</option>
+                                <option value="weekly">Weekly</option>
+                                <option value="monthly">Monthly</option>
+                            </select>
                         </div>
                     </div>
 
@@ -161,11 +212,7 @@
             </form>
 
             <div id="message-container" class="message-container"></div>
-        </main>
-
-        <footer class="footer">
-            <p>Powered by Twilio WhatsApp API</p>
-        </footer>
+        </div>
     </div>
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>
