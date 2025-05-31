@@ -68,7 +68,7 @@ body {
   }
 }
 
-/* Geometric Shapes */
+/* Geometric Shapes - Now Rounded Like Bubbles */
 .geometric-shapes {
   position: fixed;
   top: 0;
@@ -81,61 +81,67 @@ body {
 
 .shape {
   position: absolute;
-  border-radius: 50%;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
-  backdrop-filter: blur(2px);
-  border: 2px solid rgba(255, 255, 255, 0.15);
+  border-radius: 30px; /* More rounded like text bubbles */
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+  backdrop-filter: blur(3px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   animation: shapeFloat 12s infinite ease-in-out;
+  box-shadow: 0 8px 32px rgba(255, 255, 255, 0.05);
 }
 
 .shape-1 {
-  width: 600px;
-  height: 140px;
-  left: -10%;
+  width: 280px;
+  height: 120px;
+  left: -5%;
   top: 15%;
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), transparent);
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.12), rgba(99, 102, 241, 0.03));
   animation-delay: 0.3s;
-  transform: rotate(12deg);
+  transform: rotate(8deg);
+  border-radius: 40px;
 }
 
 .shape-2 {
-  width: 500px;
-  height: 120px;
-  right: -5%;
-  top: 70%;
-  background: linear-gradient(135deg, rgba(244, 63, 94, 0.15), transparent);
+  width: 320px;
+  height: 100px;
+  right: -8%;
+  top: 65%;
+  background: linear-gradient(135deg, rgba(244, 63, 94, 0.12), rgba(244, 63, 94, 0.03));
   animation-delay: 0.5s;
-  transform: rotate(-15deg);
+  transform: rotate(-12deg);
+  border-radius: 35px;
 }
 
 .shape-3 {
-  width: 300px;
+  width: 200px;
   height: 80px;
-  left: 5%;
-  bottom: 5%;
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), transparent);
+  left: 8%;
+  bottom: 8%;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.12), rgba(139, 92, 246, 0.03));
   animation-delay: 0.4s;
-  transform: rotate(-8deg);
+  transform: rotate(-5deg);
+  border-radius: 25px;
 }
 
 .shape-4 {
-  width: 200px;
-  height: 60px;
-  right: 15%;
-  top: 10%;
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), transparent);
+  width: 160px;
+  height: 70px;
+  right: 18%;
+  top: 12%;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(245, 158, 11, 0.03));
   animation-delay: 0.6s;
-  transform: rotate(20deg);
+  transform: rotate(15deg);
+  border-radius: 30px;
 }
 
 .shape-5 {
-  width: 150px;
-  height: 40px;
-  left: 20%;
-  top: 5%;
-  background: linear-gradient(135deg, rgba(6, 182, 212, 0.15), transparent);
+  width: 140px;
+  height: 60px;
+  left: 25%;
+  top: 8%;
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.12), rgba(6, 182, 212, 0.03));
   animation-delay: 0.7s;
-  transform: rotate(-25deg);
+  transform: rotate(-18deg);
+  border-radius: 25px;
 }
 
 @keyframes shapeFloat {
@@ -341,18 +347,19 @@ body {
 }
 
 .modal-container {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 20px;
-  padding: 2rem;
-  max-width: 600px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(25px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 24px;
+  padding: 2.5rem;
+  max-width: 520px;
   width: 90%;
-  max-height: 90vh;
-  overflow-y: auto;
+  max-height: 85vh;
+  overflow: hidden; /* Remove scroll */
   position: relative;
   transform: scale(0.9) translateY(20px);
   transition: all 0.3s ease;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
 }
 
 .modal-overlay.active .modal-container {
@@ -361,24 +368,25 @@ body {
 
 .modal-close {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  top: 1.5rem;
+  right: 1.5rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 1.5rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.2rem;
   cursor: pointer;
   transition: all 0.3s ease;
+  font-weight: 300;
 }
 
 .modal-close:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.15);
   color: #ffffff;
 }
 
@@ -389,7 +397,7 @@ body {
 }
 
 .progress-fill {
-  height: 4px;
+  height: 3px;
   background: linear-gradient(90deg, #8b5cf6, #a855f7);
   border-radius: 2px;
   width: 33.33%;
@@ -406,8 +414,8 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
-  opacity: 0.5;
+  gap: 0.4rem;
+  opacity: 0.4;
   transition: all 0.4s ease;
 }
 
@@ -417,25 +425,26 @@ body {
 }
 
 .step.completed {
-  opacity: 0.8;
+  opacity: 0.7;
 }
 
 .step-number {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.15);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 600;
+  font-weight: 500;
   color: #ffffff;
   transition: all 0.3s ease;
+  font-size: 0.85rem;
 }
 
 .step.active .step-number {
   background: linear-gradient(135deg, #8b5cf6, #a855f7);
-  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
 }
 
 .step.completed .step-number {
@@ -443,15 +452,16 @@ body {
 }
 
 .step-label {
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.8);
-  font-weight: 500;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 400;
 }
 
 /* Form Styling */
 .form {
   position: relative;
-  min-height: 400px;
+  height: 420px; /* Fixed height to prevent overflow */
+  overflow: hidden;
 }
 
 .form-step {
@@ -463,6 +473,9 @@ body {
   transform: translateX(50px);
   transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   pointer-events: none;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .form-step.active {
@@ -477,102 +490,114 @@ body {
 
 .step-header {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1.8rem;
+  flex-shrink: 0;
 }
 
 .step-title {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 600;
   color: #ffffff;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.4rem;
+  letter-spacing: -0.01em;
 }
 
 .step-description {
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.95rem;
+  font-weight: 400;
 }
 
 .current-time {
   margin-top: 1rem;
-  padding: 0.75rem;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 0.9rem;
+  padding: 0.7rem;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.85rem;
   text-align: center;
+  font-weight: 400;
 }
 
 .form-group {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.2rem;
+  flex-shrink: 0;
 }
 
 .input {
   width: 100%;
-  padding: 1rem;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.1);
+  padding: 0.9rem 1.1rem;
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.08);
   color: #ffffff;
-  font-size: 1rem;
+  font-size: 0.95rem;
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
+  font-weight: 400;
+  letter-spacing: 0.01em;
 }
 
 .input::placeholder {
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 400;
 }
 
 .input:focus {
   outline: none;
   border-color: #8b5cf6;
-  background: rgba(255, 255, 255, 0.15);
-  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
   transform: translateY(-1px);
 }
 
 .textarea {
-  resize: vertical;
-  min-height: 100px;
+  resize: none;
+  height: 90px;
   font-family: inherit;
+  line-height: 1.4;
 }
 
 .char-counter {
   text-align: right;
-  margin-top: 0.5rem;
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.6);
+  margin-top: 0.4rem;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 400;
 }
 
 /* Phone Input */
 .phone-input-container {
   display: flex;
   gap: 0;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.1);
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.08);
   overflow: hidden;
   transition: all 0.3s ease;
 }
 
 .phone-input-container:focus-within {
   border-color: #8b5cf6;
-  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
 }
 
 .country-code {
-  padding: 1rem;
-  background: rgba(255, 255, 255, 0.1);
+  padding: 0.9rem 1rem;
+  background: rgba(255, 255, 255, 0.08);
   color: #ffffff;
   font-weight: 500;
   display: flex;
   align-items: center;
-  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  border-right: 1px solid rgba(255, 255, 255, 0.15);
+  font-size: 0.9rem;
 }
 
 .phone-input {
   border: none;
   background: transparent;
   flex: 1;
+  padding: 0.9rem 1.1rem;
 }
 
 .phone-input:focus {
@@ -583,66 +608,70 @@ body {
 /* Time Selection */
 .time-selection {
   margin-bottom: 1rem;
+  flex: 1;
 }
 
 .time-inputs {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
 }
 
 .time-label {
   display: block;
   font-weight: 500;
   color: #ffffff;
-  margin-bottom: 0.5rem;
-  font-size: 0.95rem;
+  margin-bottom: 0.4rem;
+  font-size: 0.9rem;
+  letter-spacing: 0.01em;
 }
 
 /* Buttons */
 .step-buttons {
   display: flex;
   justify-content: space-between;
-  gap: 1rem;
-  margin-top: 2rem;
+  gap: 0.8rem;
+  margin-top: auto;
+  flex-shrink: 0;
 }
 
 .next-btn,
 .back-btn,
 .submit-btn {
-  padding: 1rem 2rem;
+  padding: 0.9rem 1.8rem;
   border: none;
-  border-radius: 12px;
-  font-size: 1rem;
-  font-weight: 600;
+  border-radius: 14px;
+  font-size: 0.95rem;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.4rem;
   position: relative;
   overflow: hidden;
+  letter-spacing: 0.01em;
 }
 
 .next-btn,
 .submit-btn {
   background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 50%, #c084fc 100%);
   color: #ffffff;
-  box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
+  box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
   flex: 1;
   justify-content: center;
 }
 
 .back-btn {
-  background: rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .next-btn:disabled,
 .submit-btn:disabled {
-  opacity: 0.5;
+  opacity: 0.4;
   cursor: not-allowed;
   transform: none;
 }
@@ -650,16 +679,17 @@ body {
 .next-btn:hover:not(:disabled),
 .submit-btn:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 15px 40px rgba(139, 92, 246, 0.6);
+  box-shadow: 0 12px 35px rgba(139, 92, 246, 0.4);
 }
 
 .back-btn:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.15);
   color: #ffffff;
 }
 
 .btn-arrow {
   transition: transform 0.3s ease;
+  font-size: 0.9rem;
 }
 
 .next-btn:hover .btn-arrow {
@@ -680,14 +710,15 @@ body {
 
 /* Message Container */
 .message-container {
-  margin-top: 1.5rem;
-  padding: 1rem;
+  margin-top: 1rem;
+  padding: 0.8rem;
   border-radius: 12px;
   text-align: center;
   font-weight: 500;
   opacity: 0;
   transform: translateY(10px);
   transition: all 0.3s ease;
+  font-size: 0.9rem;
 }
 
 .message-container.show {
@@ -696,29 +727,30 @@ body {
 }
 
 .message-container.success {
-  background: rgba(34, 197, 94, 0.2);
-  border: 1px solid rgba(34, 197, 94, 0.3);
+  background: rgba(34, 197, 94, 0.15);
+  border: 1px solid rgba(34, 197, 94, 0.25);
   color: #4ade80;
 }
 
 .message-container.error {
-  background: rgba(239, 68, 68, 0.2);
-  border: 1px solid rgba(239, 68, 68, 0.3);
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.25);
   color: #f87171;
 }
 
 .help-text {
   display: block;
-  margin-top: 0.25rem;
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.6);
+  margin-top: 0.3rem;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 400;
 }
 
 /* Loading animation */
 .loading {
   display: inline-block;
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   border: 2px solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
   border-top-color: #ffffff;
@@ -739,15 +771,22 @@ body {
 
   .time-inputs {
     grid-template-columns: 1fr;
+    gap: 0.6rem;
   }
 
   .step-buttons {
     flex-direction: column;
+    gap: 0.6rem;
   }
 
   .modal-container {
-    padding: 1.5rem;
+    padding: 2rem;
     width: 95%;
+    max-height: 90vh;
+  }
+
+  .form {
+    height: 450px;
   }
 }
 
@@ -762,7 +801,16 @@ body {
   }
 
   .modal-container {
-    padding: 1rem;
+    padding: 1.5rem;
+    border-radius: 20px;
+  }
+
+  .form {
+    height: 400px;
+  }
+
+  .step-title {
+    font-size: 1.2rem;
   }
 }
 
