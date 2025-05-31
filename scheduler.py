@@ -1,12 +1,18 @@
 from apscheduler.schedulers.background import BackgroundScheduler
 from datetime import datetime
 from pytz import utc
-from models import reminders
+from pymongo import MongoClient
 from twilio.rest import Client
 import os
 from dotenv import load_dotenv
 
 load_dotenv()
+
+# MongoDB connection - same as models.py
+MONGO_URI = os.getenv('MONGODB_URI', 'mongodb://localhost:27017/')
+mongo_client = MongoClient(MONGO_URI)
+db = mongo_client["reminder_db"]
+reminders = db["reminders"]
 
 # Twilio credentials from .env
 TWILIO_ACCOUNT_SID = os.getenv("TWILIO_ACCOUNT_SID")
