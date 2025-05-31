@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, render_template
-from models import reminders
+from pymongo import MongoClient
 from pytz import utc
 from scheduler import scheduler, start_scheduler
 from datetime import datetime
@@ -9,6 +9,12 @@ import os
 import atexit
 
 load_dotenv()
+
+# MongoDB connection
+MONGO_URI = os.getenv('MONGODB_URI', 'mongodb://localhost:27017/')
+client = MongoClient(MONGO_URI)
+db = client.reminder_db
+reminders = db.reminders
 
 app = Flask(__name__)
 
