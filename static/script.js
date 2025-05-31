@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const recurringInput = document.getElementById("recurring")
 
   let currentStep = 1
-  const totalSteps = 3
+  const totalSteps = 4 // Updated to 4 steps
 
   // Modal controls
   openModalBtn.addEventListener("click", () => {
@@ -133,22 +133,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
     currentStep = stepNumber
 
-    // If we're on step 3, validate time immediately
-    if (stepNumber === 3) {
+    // If we're on step 4, validate time immediately
+    if (stepNumber === 4) {
       validateTimeStep()
     }
   }
 
-  // Step 1: Message validation
+  // Step 2: Message validation (updated step number)
   const messageInput = document.getElementById("message")
   const charCount = document.getElementById("char-count")
-  const step1NextBtn = document.querySelector('[data-next="2"]')
+  const step2NextBtn = document.querySelector('[data-next="3"]')
 
   console.log("Message input:", messageInput) // Debug log
   console.log("Char count:", charCount) // Debug log
-  console.log("Step 1 next button:", step1NextBtn) // Debug log
+  console.log("Step 2 next button:", step2NextBtn) // Debug log
 
-  if (messageInput && charCount && step1NextBtn) {
+  if (messageInput && charCount && step2NextBtn) {
     messageInput.addEventListener("input", (e) => {
       const length = e.target.value.length
       console.log(`Message length: ${length}`) // Debug log
@@ -162,27 +162,27 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       const isValid = length > 0 && length <= 160
-      step1NextBtn.disabled = !isValid
+      step2NextBtn.disabled = !isValid
 
-      console.log(`Step 1 valid: ${isValid}`) // Debug log
+      console.log(`Step 2 valid: ${isValid}`) // Debug log
     })
 
     // Add keyup event as backup
     messageInput.addEventListener("keyup", (e) => {
       const length = e.target.value.length
       charCount.textContent = length
-      step1NextBtn.disabled = length === 0 || length > 160
+      step2NextBtn.disabled = length === 0 || length > 160
     })
   }
 
-  // Step 2: Phone validation
+  // Step 3: Phone validation (updated step number)
   const phoneInput = document.getElementById("phone")
-  const step2NextBtn = document.querySelector('[data-next="3"]')
+  const step3NextBtn = document.querySelector('[data-next="4"]')
 
   console.log("Phone input:", phoneInput) // Debug log
-  console.log("Step 2 next button:", step2NextBtn) // Debug log
+  console.log("Step 3 next button:", step3NextBtn) // Debug log
 
-  if (phoneInput && step2NextBtn) {
+  if (phoneInput && step3NextBtn) {
     phoneInput.addEventListener("input", (e) => {
       // Remove any non-digit characters
       let value = e.target.value.replace(/\D/g, "")
@@ -196,7 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Enable next button if we have 8 digits
       const isValid = value.length === 8
-      step2NextBtn.disabled = !isValid
+      step3NextBtn.disabled = !isValid
 
       console.log(`Phone: ${value}, valid: ${isValid}`) // Debug log
     })
@@ -316,11 +316,11 @@ document.addEventListener("DOMContentLoaded", () => {
     showStep(1)
 
     // Reset all buttons
-    const step1NextBtn = document.querySelector('[data-next="2"]')
     const step2NextBtn = document.querySelector('[data-next="3"]')
+    const step3NextBtn = document.querySelector('[data-next="4"]')
 
-    if (step1NextBtn) step1NextBtn.disabled = true
     if (step2NextBtn) step2NextBtn.disabled = true
+    if (step3NextBtn) step3NextBtn.disabled = true
     submitBtn.disabled = true
 
     // Reset character counter
